@@ -1,11 +1,19 @@
 /* eslint-disable */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import img from '../assets/img.jpg';
 
 export default function Home() {
+  const [articles, setArticles] = useState();
+
+  useEffect(() => {
+    fetch("api/articles")
+      .then((res) => res.json())
+      .then((res) => setArticles(res.articles))
+  }, [])
+
   function Article(props) {
     return (
       <Link to="article">
@@ -49,23 +57,13 @@ export default function Home() {
 
       <Actions />
 
-      <Article
-        img={img}
-        title="Vivamus euismod a tellus eget interdum. Aenean ac."
-        content="Aliquam vulputate mi in vulputate aliquam. Mauris ultrices vel felis eget tempus. Morbi a est at lacus malesuada ultrices ac quis turpis. Curabitur ante metus, malesuada eget neque eu, ornare suscipit ligula. Aliquam suscipit cursus eros, ut tincidunt nulla laoreet a. Donec aliquam urna vel pellentesque sodales."
-      />
-
-      <Article
-        img={img}
-        title="Vivamus euismod a tellus eget interdum. Aenean ac."
-        content="Aliquam vulputate mi in vulputate aliquam. Mauris ultrices vel felis eget tempus. Morbi a est at lacus malesuada ultrices ac quis turpis. Curabitur ante metus, malesuada eget neque eu, ornare suscipit ligula. Aliquam suscipit cursus eros, ut tincidunt nulla laoreet a. Donec aliquam urna vel pellentesque sodales."
-      />
-
-      <Article
-        img={img}
-        title="Vivamus euismod a tellus eget interdum. Aenean ac."
-        content="Aliquam vulputate mi in vulputate aliquam. Mauris ultrices vel felis eget tempus. Morbi a est at lacus malesuada ultrices ac quis turpis. Curabitur ante metus, malesuada eget neque eu, ornare suscipit ligula. Aliquam suscipit cursus eros, ut tincidunt nulla laoreet a. Donec aliquam urna vel pellentesque sodales."
-      />
+      {articles && articles.map((article) =>
+        <Article
+          img={img}
+          title={article.title}
+          content={article.content}
+        />
+      )}
 
       <Pagination />
     </div>
