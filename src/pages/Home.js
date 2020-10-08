@@ -3,8 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import img from '../assets/img.jpg';
-
 export default function Home() {
   const [articles, setArticles] = useState();
 
@@ -59,7 +57,7 @@ export default function Home() {
 
       {articles && articles.map((article) =>
         <Article
-          img={img}
+          img={article.image}
           id={article.id}
           title={article.title}
           content={article.content}

@@ -3,8 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import img from '../assets/img.jpg';
-
 export default function Article() {
     const [article, setArticle] = useState({});
     const { id } = useParams();
@@ -28,7 +26,7 @@ export default function Article() {
         <div class="container py-5">
             <h1 class="my-5 pb-5">Hello Bootstrap</h1>
 
-            <img src={img} class="w-100" />
+            <img src={article.image} class="w-100" />
 
             <h2 class="mt-4 mb-3">{article.title}</h2>
             <p>{article.content}</p>

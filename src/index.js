@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { createServer, Model, Factory } from "miragejs"
 
+import img from './assets/img.jpg';
+
 createServer({
   models: {
     article: Model
@@ -10,6 +12,7 @@ createServer({
 
   factories: {
     article: Factory.extend({
+      image: img,
       title: 'Vivamus euismod a tellus eget interdum. Aenean ac.',
       content: 'Aliquam vulputate mi in vulputate aliquam. Mauris ultrices vel felis eget tempus. Morbi a est at lacus malesuada ultrices ac quis turpis. Curabitur ante metus, malesuada eget neque eu, ornare suscipit ligula. Aliquam suscipit cursus eros, ut tincidunt nulla laoreet a. Donec aliquam urna vel pellentesque sodales.'
     })
