@@ -1,10 +1,20 @@
 /* eslint-disable */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 import img from '../assets/img.jpg';
 
 export default function Article() {
+    const [article, setArticle] = useState({});
+    const { id } = useParams();
+
+    useEffect(() => {
+        fetch("/api/articles/" + id)
+            .then((res) => res.json())
+            .then((res) => setArticle(res.article))
+    }, [])
+
     function Actions() {
         return (
             <>
@@ -20,8 +30,8 @@ export default function Article() {
 
             <img src={img} class="w-100" />
 
-            <h2 class="mt-4 mb-3">Vivamus euismod a tellus eget interdum. Aenean ac.</h2>
-            <p>Aliquam vulputate mi in vulputate aliquam. Mauris ultrices vel felis eget tempus. Morbi a est at lacus malesuada ultrices ac quis turpis. Curabitur ante metus, malesuada eget neque eu, ornare suscipit ligula. Aliquam suscipit cursus eros, ut tincidunt nulla laoreet a. Donec aliquam urna vel pellentesque sodales.</p>
+            <h2 class="mt-4 mb-3">{article.title}</h2>
+            <p>{article.content}</p>
 
             <Actions />
         </div>

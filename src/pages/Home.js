@@ -16,7 +16,7 @@ export default function Home() {
 
   function Article(props) {
     return (
-      <Link to="article">
+      <Link to={"/article/" + props.id}>
         <article class="mb-5 text-dark">
           <div class="media d-block d-md-flex">
             <img src={props.img} class="mr-3" />
@@ -60,6 +60,7 @@ export default function Home() {
       {articles && articles.map((article) =>
         <Article
           img={img}
+          id={article.id}
           title={article.title}
           content={article.content}
         />
