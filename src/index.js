@@ -33,8 +33,8 @@ createServer({
     });
 
     this.post("/api/articles", (schema, request) => {
-      let attrs = JSON.parse(request.requestBody);
-      return schema.articles.create(attrs);
+      let attrs = request.requestBody;
+      return schema.articles.create({...attrs, image: img});
     });
   }
 });
