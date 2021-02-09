@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { createServer, Model, Factory } from "miragejs"
+import { createServer, Model, Factory, Response } from "miragejs"
 
 import img from './assets/img.jpg';
 
@@ -35,6 +35,16 @@ createServer({
     this.post("/api/articles", (schema, request) => {
       let attrs = request.requestBody;
       return schema.articles.create({...attrs, image: img});
+    });
+
+    this.post("/api/login", (schema, request) => {
+      let attrs = request.requestBody;
+
+      if (attrs.user === 'admin' && attrs.password === 'admin') {
+        return new Response(200)
+      }
+
+      return new Response(403)
     });
   }
 });
