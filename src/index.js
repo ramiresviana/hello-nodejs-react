@@ -32,6 +32,11 @@ createServer({
       return schema.find('article', id);
     });
 
+    this.del("/api/articles/:id", (schema, request) => {
+      let id = request.params.id;
+      return schema.find('article', id).destroy();
+    });
+
     this.post("/api/articles", (schema, request) => {
       let attrs = request.requestBody;
       return schema.articles.create({...attrs, image: img});
