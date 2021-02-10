@@ -34,8 +34,8 @@ export default function Home() {
         <div class="dropdown mb-2">
           <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Logged as admin</button>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Add article</a>
-            <a class="dropdown-item" href="#">Logout</a>
+            <Link to={"/new"} class="dropdown-item"> Add article </Link>
+            <Link to={"/logout"} class="dropdown-item"> Logout </Link>
           </div>
         </div>
         <p class="pb-4">There are 100 posts</p>
