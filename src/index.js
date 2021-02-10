@@ -32,6 +32,12 @@ createServer({
       return schema.find('article', id);
     });
 
+    this.patch("/api/articles/:id", (schema, request) => {
+      let id = request.params.id;
+      let attrs = request.requestBody;
+      return schema.find('article', id).update(attrs);
+    });
+
     this.del("/api/articles/:id", (schema, request) => {
       let id = request.params.id;
       return schema.find('article', id).destroy();
