@@ -1,13 +1,16 @@
 /* eslint-disable */
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from "react-router-dom";
+
+import AppContext from '../context'
 
 export default function Login() {
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
 
+  const [auth, setAuth] = useContext(AppContext)
   const history = useHistory();
 
   function onSubmit(event) {
@@ -24,9 +27,8 @@ export default function Login() {
 
       return res
     }).then((res) => {
-      if (res.ok) {
-        history.replace("/")
-      }
+      setAuth(true)
+      history.replace("/")
     })
   }
 

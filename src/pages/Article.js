@@ -1,11 +1,15 @@
 /* eslint-disable */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
+
+import AppContext from '../context'
 
 export default function Article() {
   const [article, setArticle] = useState({});
   const { id } = useParams();
+
+  const [auth, setAuth] = useContext(AppContext)
 
   useEffect(() => {
     fetch("/api/articles/" + id)
@@ -31,7 +35,7 @@ export default function Article() {
       <h2 class="mt-4 mb-3">{article.title}</h2>
       <p>{article.content}</p>
 
-      <Actions />
+      { auth && <Actions />}
     </div>
   )
 }

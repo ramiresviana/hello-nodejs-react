@@ -1,10 +1,14 @@
 /* eslint-disable */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+
+import AppContext from '../context'
 
 export default function Home() {
   const [articles, setArticles] = useState();
+
+  const [auth, setAuth] = useContext(AppContext)
 
   useEffect(() => {
     fetch("api/articles")
@@ -35,7 +39,7 @@ export default function Home() {
           <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Logged as admin</button>
           <div class="dropdown-menu">
             <Link to={"/new"} class="dropdown-item"> Add article </Link>
-            <Link to={"/logout"} class="dropdown-item"> Logout </Link>
+            <a href="#" class="dropdown-item" onClick={() => setAuth(false)} > Logout </a>
           </div>
         </div>
         <p class="pb-4">There are 100 posts</p>
@@ -53,7 +57,7 @@ export default function Home() {
     <div class="container py-5">
       <h1 class="mt-5 pb-4">Hello Bootstrap</h1>
 
-      <Actions />
+      {auth && <Actions />}
 
       {articles && articles.map((article) =>
         <Article
