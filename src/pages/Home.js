@@ -7,14 +7,21 @@ import AppContext from '../context'
 
 export default function Home() {
   const [articles, setArticles] = useState();
+  const [page, setPage] = useState(1);
+  const [pageCount, setPageCount] = useState(1);
 
   const [auth, setAuth] = useContext(AppContext)
 
   useEffect(() => {
-    fetch("api/articles")
+    setArticles(null)
+
+    fetch("api/articles/page/" + page)
       .then((res) => res.json())
-      .then((res) => setArticles(res.articles))
-  }, [])
+      .then((res) => {
+        setPageCount(res.pageCount)
+        setArticles(res.articles)
+      })
+  }, [page])
 
   function Article(props) {
     return (
@@ -48,8 +55,15 @@ export default function Home() {
   }
 
   function Pagination() {
+    if (pageCount == 1) {
+      return null
+    }
+
     return (
-      <button type="button" class="btn btn-primary mt-3">Next page</button>
+      <>
+        {page > 1 && <a class="btn btn-primary mt-3 mr-1" onClick={() => setPage(page - 1)}>Previous page</a>}
+        {page < pageCount && <a class="btn btn-primary mt-3" onClick={() => setPage(page + 1)}>Next page</a>}
+      </>
     )
   }
 

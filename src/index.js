@@ -5,6 +5,8 @@ import { createServer, Model, Factory, Response } from "miragejs"
 
 import img from './assets/img.jpg';
 
+const articlesPerPage = 5
+
 createServer({
   models: {
     article: Model
@@ -19,12 +21,32 @@ createServer({
   },
 
   seeds(server) {
-    server.createList('article', 3);
+    server.createList('article', 16);
   },
 
   routes() {
     this.get("/api/articles", (schema) => {
-      return schema.articles.all();
+      let articles = schema.articles.all().sort((a, b) => {
+        return b.id - a.id;
+      });
+
+      return articles;
+    });
+
+    this.get("/api/articles/page/:page", (schema, request) => {
+      let articles = schema.articles.all().sort((a, b) => {
+        return b.id - a.id;
+      });
+
+      let pageCount = Math.ceil(articles.length / articlesPerPage)
+      let page = request.params.page - 1;
+
+      let start = page * articlesPerPage
+      let end = start + articlesPerPage
+
+      articles = articles.slice(start, end).models
+
+      return {articles, pageCount}
     });
 
     this.get("/api/articles/:id", (schema, request) => {
