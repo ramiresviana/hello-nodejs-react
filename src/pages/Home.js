@@ -9,6 +9,7 @@ export default function Home() {
   const [articles, setArticles] = useState();
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
+  const [articlesCount, setArticlesCount] = useState();
 
   const [auth, setAuth] = useContext(AppContext)
 
@@ -18,6 +19,7 @@ export default function Home() {
     fetch("api/articles/page/" + page)
       .then((res) => res.json())
       .then((res) => {
+        setArticlesCount(res.articlesCount)
         setPageCount(res.pageCount)
         setArticles(res.articles)
       })
@@ -49,7 +51,7 @@ export default function Home() {
             <a href="#" class="dropdown-item" onClick={() => setAuth(false)} > Logout </a>
           </div>
         </div>
-        <p class="pb-4">There are 100 posts</p>
+        <p class="pb-4">There are {articlesCount} posts</p>
       </>
     )
   }

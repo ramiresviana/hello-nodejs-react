@@ -73,7 +73,8 @@ createServer({
         return b.id - a.id;
       });
 
-      let pageCount = Math.ceil(articles.length / articlesPerPage)
+      let articlesCount = articles.length
+      let pageCount = Math.ceil(articlesCount / articlesPerPage)
       let page = request.params.page - 1;
 
       let start = page * articlesPerPage
@@ -81,7 +82,7 @@ createServer({
 
       articles = articles.slice(start, end).models
 
-      return {articles, pageCount}
+      return {articles, pageCount, articlesCount}
     });
 
     this.get("/api/articles/:id", (schema, request) => {
